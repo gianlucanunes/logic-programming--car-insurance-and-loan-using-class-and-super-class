@@ -1,152 +1,186 @@
-﻿SeguroVeiculo seg = new SeguroVeiculo();
-Emprestimo emp = new Emprestimo();
+﻿/*
+ * 
+ *      EN: Logic Programming Exercise: Car Insurance and Loan using class and Super Class concepts.
+ *      PT-BR: Exercício de Lógica de Programação: Seguro de veículo e Empréstimo usando os conceitos de Classe e Super Classe.
+ *
+ *      Created by / Feito por: Gianluca Nunes
+ *
+ */
 
+// Creating the VehIns object to store the insurance information
+VehicleInsurance vehIns = new VehicleInsurance();
+// Creating the loan object to store the loan information
+Loan loan = new Loan();
 
-Console.WriteLine("Opções:\n[S] Seguro Veicular\n[E] Empréstimo\n\n");
+Console.WriteLine("-=- CAR INSURANCE AND LOAN -=-\n");
 
-_inicio:
-Console.Write("Selecione a opção desejada: ");
-string opc = Console.ReadLine().ToUpper();
+// Asking the user which option he wants
+Console.WriteLine("Options:\n[I] Vehicle Insurance\n[L] Loan\n");
 
-if (opc != "S" && opc != "E")
+_beggining:
+Console.Write("Select a correct option: ");
+string opt = Console.ReadLine().ToUpper();
+
+// Validating the user input
+if (opt != "I" && opt != "L")
 {
-    Console.WriteLine("\nOpção inválida! Tente novamente!\n");
-    goto _inicio;
-}
-else if (opc == "S")
-{
-    Console.WriteLine("\nPreencha os dados abaixo:");
-
-    Console.Write("\nContratante: ");
-    seg.Contratante = Console.ReadLine();
-
-    Console.Write("\nResponsável: ");
-    seg.Responsavel = Console.ReadLine();
-
-_data:
-    Console.Write("\nData: ");
-    DateTime data;
-    if (DateTime.TryParse(Console.ReadLine(), out data))
-    {
-        seg.DataContrato = data;
-    }
-    else
-    {
-        Console.WriteLine("\nERRO: Valor de data inválido! Tente novamente!\n");
-        goto _data;
-    }
-
-    Console.Write("\nVeículo: ");
-    seg.Veiculo = Console.ReadLine();
-
-_precoS:
-    Console.Write("\nPreço do seguro: ");
-    double precoSeg;
-    if (double.TryParse(Console.ReadLine(), out precoSeg))
-    {
-        seg.PrecoSeguro = precoSeg;
-    }
-    else
-    {
-        Console.WriteLine("\nERRO: Valor inválido! Tente novamente!\n");
-        goto _precoS;
-    }
-
-_precoF:
-    Console.Write("\nPreço da franquia: ");
-    double precoFra;
-    if (double.TryParse(Console.ReadLine(), out precoFra))
-    {
-        seg.PrecoFranquia = precoFra;
-    }
-    else
-    {
-        Console.WriteLine("\nERRO: Valor inválido! Tente novamente!\n");
-        goto _precoF;
-    }
+    Console.WriteLine("\nIncorrect option! Please, try it again.\n");
+    goto _beggining;
 }
 
-else if (opc == "E")
+// Insurance form
+else if (opt == "I")
 {
-    Console.WriteLine("\nPreencha os dados abaixo:");
+    // Asking the user to fill the form
+    Console.WriteLine("\nPlease, fill the form bellow:");
 
-    Console.Write("\nContratante: ");
-    emp.Contratante = Console.ReadLine();
+    Console.Write("\nContractor: ");
+    vehIns.Contractor = Console.ReadLine();
 
-    Console.Write("\nResponsável: ");
-    emp.Responsavel = Console.ReadLine();
+    Console.Write("\nResponsible: ");
+    vehIns.Responsible = Console.ReadLine();
 
-_data:
-    Console.Write("\nData: ");
-    DateTime data;
-    if (DateTime.TryParse(Console.ReadLine(), out data))
+_dateIns:
+    // Validating the Contrac tDate
+    Console.Write("\nDate: ");
+    DateTime dateIns;
+    if (DateTime.TryParse(Console.ReadLine(), out dateIns))
     {
-        emp.DataContrato = data;
+        vehIns.ContractDate = dateIns;
     }
+
     else
     {
-        Console.WriteLine("\nERRO: Valor de data inválido! Tente novamente!\n");
-        goto _data;
+        Console.WriteLine("\nIncorrect date value! Please, try it again.");
+        goto _dateIns;
     }
 
-_precoV:
-    Console.Write("\nValor: ");
-    double valor;
-    if (double.TryParse(Console.ReadLine(), out valor))
+    Console.Write("\nVehicle: ");
+    vehIns.Vehicle = Console.ReadLine();
+
+_insValue:
+    // Validating the Insurance Value
+    Console.Write("\nInsurance value: ");
+    double insValue;
+    if (double.TryParse(Console.ReadLine(), out insValue))
     {
-        emp.Valor = valor;
-    }
-    else
-    {
-        Console.WriteLine("\nERRO: Valor inválido! Tente novamente!\n");
-        goto _precoV;
+        vehIns.InsuranceValue = insValue;
     }
 
-_precoT:
-    Console.Write("\nTaxa: ");
-    double taxa;
-    if (double.TryParse(Console.ReadLine(), out taxa))
-    {
-        emp.Taxa = taxa;
-    }
     else
     {
-        Console.WriteLine("\nERRO: Valor inválido! Tente novamente!\n");
-        goto _precoT;
+        Console.WriteLine("\nIncorrect value! Please, try it again.");
+        goto _insValue;
+    }
+
+_franPrice:
+    // Validating the Franchise Price
+    Console.Write("\nFranchise price: ");
+    double franPrice;
+    if (double.TryParse(Console.ReadLine(), out franPrice))
+    {
+        vehIns.FranchisePrice = franPrice;
+    }
+
+    else
+    {
+        Console.WriteLine("\nIncorrect value! Please, try it again.");
+        goto _franPrice;
     }
 }
 
-_imprimir:
-Console.WriteLine("\nDeseja imprimir o serviço na tela?\n[S] Sim\n[N] Não\n");
-string opc2 = Console.ReadLine().ToUpper();
-
-if (opc2 != "S" && opc2 != "N")
+// Loan form
+else if (opt == "L")
 {
-    Console.WriteLine("\nERRO: Opção inválida! Tente novamente!\n");
-    goto _imprimir;
+    // Asking the user to fill the form
+    Console.WriteLine("\nPlease, fill the form bellow:");
+
+    Console.Write("\nContractor: ");
+    loan.Contractor = Console.ReadLine();
+
+    Console.Write("\nResponsible: ");
+    loan.Responsible = Console.ReadLine();
+
+_dateLoan:
+    // Validating the Contract Date
+    Console.Write("\nDate: ");
+    DateTime dateLoan;
+    if (DateTime.TryParse(Console.ReadLine(), out dateLoan))
+    {
+        loan.ContractDate = dateLoan;
+    }
+
+    else
+    {
+        Console.WriteLine("\nIncorrect date value! Please, try it again.");
+        goto _dateLoan;
+    }
+
+_loanValue:
+    // Validating the Loan Value
+    Console.Write("\nValue: ");
+    double value;
+    if (double.TryParse(Console.ReadLine(), out value))
+    {
+        loan.Value= value;
+    }
+
+    else
+    {
+        Console.WriteLine("\nIncorrect value! Please, try it again.");
+        goto _loanValue;
+    }
+
+_taxesValue:
+    // Validating the Taxes Value
+    Console.Write("\nTaxes: ");
+    double taxes;
+    if (double.TryParse(Console.ReadLine(), out taxes))
+    {
+        loan.Taxes = taxes;
+    }
+
+    else
+    {
+        Console.WriteLine("\nIncorrect value! Please, try it again.");
+        goto _taxesValue;
+    }
 }
+
+// Asking the user if he wants to display the info at the screen
+_displayInfo:
+Console.WriteLine("\nDo you want to display the service details?\n[Y] Yes\n[N] No\n");
+string optDisplay = Console.ReadLine().ToUpper();
+
+// Validating the user input
+if (optDisplay != "Y" && optDisplay != "N")
+{
+    Console.WriteLine("\nIncorrect option! Please, try it again.");
+    goto _displayInfo;
+}
+
+// Displaying the info according to the user choosen option (Insurance or Loan)
 else
 {
-    switch (opc2)
+    switch (optDisplay)
     {
-        case "S":
-            if (opc == "S")
+        case "Y":
+            if (opt == "I")
             {
-                Console.WriteLine(seg.ExibirDados());
-                goto _fim;
+                Console.WriteLine(vehIns.DisplayInfo());
+                goto _end;
             }
             else
             {
-                Console.WriteLine(emp.ExibirDados());
-                goto _fim;
+                Console.WriteLine(loan.DisplayInfo());
+                goto _end;
             }
-
         case "N":
-            goto _fim;
-
+            goto _end;
     }
 }
 
-_fim:
-Console.WriteLine("\nTecle espaço para continuar...");
+// Ending the program
+_end:
+Console.WriteLine("\nPress space to close the program...");
 Console.ReadKey();
